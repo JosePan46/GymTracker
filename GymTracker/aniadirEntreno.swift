@@ -26,9 +26,10 @@ struct aniadirEntreno: View {
     @State private var pesos3 : String = ""
     @State private var pesos4 : String = ""
     
-    @State private var isPresented  : Bool = false
-    @State private var confirmation : Bool = false
-    @State private var emailControl : Bool = false
+    @State private var isPresented      : Bool = false
+    @State private var confirmation     : Bool = false
+    @State private var emailControl     : Bool = false
+    @State private var ejercicioControl : Bool = false
     
     @EnvironmentObject var appState: AppState
     
@@ -53,11 +54,10 @@ struct aniadirEntreno: View {
                                 
                             }
                             Spacer()
-                            
-                            .multilineTextAlignment(.trailing)
+                                .multilineTextAlignment(.trailing)
                             //.padding(.trailing, 330)
                         }
-                }
+                    }
                 }
                 HStack{
                     
@@ -71,7 +71,7 @@ struct aniadirEntreno: View {
             }
             Form{
                 Section{
-                    TextField("Título del día", text: $titulo)
+                    TextField("Título del entrenamiento", text: $titulo)
                     
                 }
                 TextField("Nombre del ejercicio", text: $nombreEjercicio)
@@ -101,27 +101,8 @@ struct aniadirEntreno: View {
                 }
                 Button(action: {
                     print("Añadiendo")
-                    let serie1 = SeriesModel(repeticiones: numRepeticiones1, peso: pesos1)
-                    let serie2 = SeriesModel(repeticiones: numRepeticiones2, peso: pesos2)
-                    let serie3 = SeriesModel(repeticiones: numRepeticiones3, peso: pesos3)
-                    let serie4 = SeriesModel(repeticiones: numRepeticiones4, peso: pesos4)
-                    let seriesArray = [serie1,serie2,serie3,serie4]
+                    ejercicioControl = true;
                     
-                    
-                    let ejercicio = EjercicioModel(nombre: nombreEjercicio, series: seriesArray)
-                    
-                    ejercicios.insert(ejercicio, at: ejercicios.count)
-                    
-                    nombreEjercicio=""
-                    numRepeticiones1=""
-                    numRepeticiones2=""
-                    numRepeticiones3=""
-                    numRepeticiones4=""
-                    
-                    pesos1=""
-                    pesos2=""
-                    pesos3=""
-                    pesos4=""
                     
                 }) {
                     HStack(alignment: .center){
@@ -131,6 +112,38 @@ struct aniadirEntreno: View {
                         Image(systemName: "plus.app")
                     }
                 }
+                .alert(isPresented: $ejercicioControl, content: {
+                    Alert(title: Text("Confirmar"),
+                          message:  Text("¿Está seguro de que desea añadir el ejercicio?"),
+                          primaryButton: Alert.Button.default(Text("Aceptar"), action: {
+                        
+                        let serie1 = SeriesModel(repeticiones: numRepeticiones1, peso: pesos1)
+                        let serie2 = SeriesModel(repeticiones: numRepeticiones2, peso: pesos2)
+                        let serie3 = SeriesModel(repeticiones: numRepeticiones3, peso: pesos3)
+                        let serie4 = SeriesModel(repeticiones: numRepeticiones4, peso: pesos4)
+                        let seriesArray = [serie1,serie2,serie3,serie4]
+                        
+                        
+                        let ejercicio = EjercicioModel(nombre: nombreEjercicio, series: seriesArray)
+                        
+                        ejercicios.insert(ejercicio, at: ejercicios.count)
+                        
+                        nombreEjercicio=""
+                        numRepeticiones1=""
+                        numRepeticiones2=""
+                        numRepeticiones3=""
+                        numRepeticiones4=""
+                        
+                        pesos1=""
+                        pesos2=""
+                        pesos3=""
+                        pesos4=""
+                        
+                        
+                        print("El user ha pulsado el botón de Aceptar")
+                    }),
+                          secondaryButton: .destructive(Text("Cancelar")))
+                })
                 
                 Section{
                     HStack{
@@ -151,37 +164,40 @@ struct aniadirEntreno: View {
                         })
                     }
                 }
-            }
-            
-            Spacer()
-            Button(action: {
-                if titulo=="" {
-                    isPresented = true
-                }else{
-                    confirmation = true;
-                }
-            }) {
-                Text("Finalizar entrenamiento")
-                    .fontWeight(.heavy)
-                    .foregroundColor(Color.red)
-            }
-            
-            .alert(isPresented: $isPresented, content: {
-                Alert(title: Text("Atención"),
-                      message: Text("El título del día no puede estar vacío"))
-            })
-            .alert(isPresented: $confirmation, content: {
-                Alert(title: Text("Confirmar"),
-                      message:  Text("¿Está seguro de que desea finalizar el entrenamiento"),
-                      primaryButton: Alert.Button.default(Text("Aceptar"), action: {
-                    entrenoViewModel.saveEntrenamiento(titulo: titulo, ejercicios: ejercicios)
-                    titulo=""
-                    appState.boar = true
+                Section{
                     
-                    print("El user ha pulsado el botón de Aceptar")
-                }),
-                      secondaryButton: .destructive(Text("Cancelar")))
-            })
+                        
+                        Button(action: {
+                            if titulo=="" {
+                                isPresented = true
+                            }else{
+                                confirmation = true;
+                            }
+                        }) {
+                            Text("Finalizar entrenamiento")
+                                .fontWeight(.heavy)
+                                .foregroundColor(Color.red)
+                        }
+                        
+                        .alert(isPresented: $isPresented, content: {
+                            Alert(title: Text("Atención"),
+                                  message: Text("El título del día no puede estar vacío"))
+                        })
+                        .alert(isPresented: $confirmation, content: {
+                            Alert(title: Text("Confirmar"),
+                                  message:  Text("¿Está seguro de que desea finalizar el entrenamiento?"),
+                                  primaryButton: Alert.Button.default(Text("Aceptar"), action: {
+                                entrenoViewModel.saveEntrenamiento(titulo: titulo, ejercicios: ejercicios)
+                                titulo=""
+                                appState.boar = true
+                                
+                                print("El user ha pulsado el botón de Aceptar")
+                            }),
+                                  secondaryButton: .destructive(Text("Cancelar")))
+                        })
+                }
+                
+            }
         }
     }
 }
