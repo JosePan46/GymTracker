@@ -14,11 +14,7 @@ struct Email {
     let header: String
     let ejercicios: [EjercicioModel]
     
-    var body: String {
-    """
-        \(ejercicios.description)
-    """
-    }
+    let body: String
     
     func send (openUrl: OpenURLAction){
         let urlString = "mailto:\(direccion)?subject=\(subject.addingPercentEncoding(withAllowedCharacters:  .urlPathAllowed) ?? "")&body=\(body.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")"

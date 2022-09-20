@@ -26,7 +26,9 @@ struct aniadirEntreno: View {
     @State private var pesos3 : String = ""
     @State private var pesos4 : String = ""
     
-    @State private var isPresented : Bool = false
+    @State private var isPresented  : Bool = false
+    @State private var confirmation : Bool = false
+    @State private var emailControl : Bool = false
     
     @EnvironmentObject var appState: AppState
     
@@ -35,6 +37,7 @@ struct aniadirEntreno: View {
     @State private var direccionEmail : String = ""
     @State private var subjectEmail : String = ""
     @State private var headerEmail : String = "header"
+    @State private var cuerpo : String = ""
     
     var body: some View {
         VStack(){
@@ -47,8 +50,8 @@ struct aniadirEntreno: View {
                         Text("Back")
                         Spacer()
                     }
-                           
-                    .multilineTextAlignment(/*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/)
+                    
+                    .multilineTextAlignment(.trailing)
                     //.padding(.trailing, 330)
                 }
                 HStack{
@@ -127,14 +130,19 @@ struct aniadirEntreno: View {
                 Section{
                     HStack{
                         TextField("Dirección email", text: $direccionEmail)
-                        Button("Email"){
-                            //Control de errores, dirección vacia o día vacion
+                        Button("Enviar"){
+                            if (direccionEmail == ""){
+                                emailControl = true;
+                            }
                             subjectEmail = titulo;
-                            
-                            let email = Email(direccion: direccionEmail, subject: subjectEmail, header: "header", ejercicios: ejercicios)
-                            
+                            cuerpo = cuerpoEmail(ejercicios: ejercicios)
+                            let email = Email(direccion: direccionEmail, subject: subjectEmail, header: "header", ejercicios: ejercicios, body: cuerpo)
                             email.send(openUrl: openUrl)
                         }
+                        .alert(isPresented: $emailControl, content: {
+                            Alert(title: Text("Atención"),
+                                  message: Text("La dirección de correo no puede estar vacío"))
+                        })
                     }
                 }
             }
@@ -144,20 +152,29 @@ struct aniadirEntreno: View {
                 if titulo=="" {
                     isPresented = true
                 }else{
+                    confirmation = true;
+                }
+            }) {
+                Text("Finalizar entrenamiento")
+                    .fontWeight(.heavy)
+                    .foregroundColor(Color.red)
+            }
+            
+            .alert(isPresented: $isPresented, content: {
+                Alert(title: Text("Atención"),
+                      message: Text("El título del día no puede estar vacío"))
+            })
+            .alert(isPresented: $confirmation, content: {
+                Alert(title: Text("Confirmar"),
+                      message:  Text("¿Está seguro de que desea finalizar el entrenamiento"),
+                      primaryButton: Alert.Button.default(Text("Aceptar"), action: {
                     entrenoViewModel.saveEntrenamiento(titulo: titulo, ejercicios: ejercicios)
                     titulo=""
                     appState.boar = true
                     
-                }
-            }) {
-                Text("Finalizar entrenamiento")
-                                   .fontWeight(.heavy)
-                                   .foregroundColor(Color.red)
-            }
-                   
-            .alert(isPresented: $isPresented, content: {
-                Alert(title: Text("Atención"),
-                      message: Text("El título del día no puede estar vacío"))
+                    print("El user ha pulsado el botón de Aceptar")
+                }),
+                      secondaryButton: .destructive(Text("Cancelar")))
             })
         }
     }
@@ -167,4 +184,25 @@ struct aniadirEntreno_Previews: PreviewProvider {
     static var previews: some View {
         aniadirEntreno()
     }
+}
+
+func cuerpoEmail (ejercicios : [EjercicioModel]) -> String{
+    
+    var c : String = ""
+    
+    var count: Int = 1;
+    
+    for ejercicio in ejercicios {
+        c += ejercicio.nombre + "\n"
+        count = 1
+        for serie in ejercicio.series {
+            
+            c += "\n" + "Serie: " + "\(count)" + "\n"
+            c += serie.repeticiones + "/t" + serie.peso
+            c += "\n"
+            count += 1
+            
+        }
+    }
+    return c;
 }
