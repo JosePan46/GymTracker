@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		828448BF28D9FF1A0001E6CE /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828448BE28D9FF1A0001E6CE /* Email.swift */; };
 		82AD348B28D508F20033E2A0 /* GymTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD348A28D508F20033E2A0 /* GymTrackerApp.swift */; };
 		82AD348D28D508F20033E2A0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD348C28D508F20033E2A0 /* ContentView.swift */; };
 		82AD348F28D508F30033E2A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82AD348E28D508F30033E2A0 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		828448BE28D9FF1A0001E6CE /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
 		82AD348728D508F20033E2A0 /* GymTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GymTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82AD348A28D508F20033E2A0 /* GymTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymTrackerApp.swift; sourceTree = "<group>"; };
 		82AD348C28D508F20033E2A0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 		82AD348928D508F20033E2A0 /* GymTracker */ = {
 			isa = PBXGroup;
 			children = (
+				828448BE28D9FF1A0001E6CE /* Email.swift */,
 				82AD348A28D508F20033E2A0 /* GymTrackerApp.swift */,
 				82AD348C28D508F20033E2A0 /* ContentView.swift */,
 				82AD34BE28D509C30033E2A0 /* detalle.swift */,
@@ -280,6 +283,7 @@
 				82AD34B828D509750033E2A0 /* EjercicioModel.swift in Sources */,
 				82AD34BF28D509C30033E2A0 /* detalle.swift in Sources */,
 				82AD348D28D508F20033E2A0 /* ContentView.swift in Sources */,
+				828448BF28D9FF1A0001E6CE /* Email.swift in Sources */,
 				82AD34BD28D509BD0033E2A0 /* aniadirEntreno.swift in Sources */,
 				82AD34B928D509750033E2A0 /* EntrenamientoViewModel.swift in Sources */,
 				82AD348B28D508F20033E2A0 /* GymTrackerApp.swift in Sources */,

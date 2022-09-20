@@ -31,6 +31,11 @@ struct aniadirEntreno: View {
     @EnvironmentObject var appState: AppState
     
     
+    @Environment(\.openURL) var openUrl
+    @State private var direccionEmail : String = ""
+    @State private var subjectEmail : String = ""
+    @State private var headerEmail : String = "header"
+    
     var body: some View {
         VStack(){
             Section{
@@ -118,7 +123,22 @@ struct aniadirEntreno: View {
                         Image(systemName: "plus.app")
                     }
                 }
+                
+                Section{
+                    HStack{
+                        TextField("Dirección email", text: $direccionEmail)
+                        Button("Email"){
+                            //Control de errores, dirección vacia o día vacion
+                            subjectEmail = titulo;
+                            
+                            let email = Email(direccion: direccionEmail, subject: subjectEmail, header: "header", ejercicios: ejercicios)
+                            
+                            email.send(openUrl: openUrl)
+                        }
+                    }
+                }
             }
+            
             Spacer()
             Button(action: {
                 if titulo=="" {
@@ -127,6 +147,7 @@ struct aniadirEntreno: View {
                     entrenoViewModel.saveEntrenamiento(titulo: titulo, ejercicios: ejercicios)
                     titulo=""
                     appState.boar = true
+                    
                 }
             }) {
                 Text("Finalizar entrenamiento")
