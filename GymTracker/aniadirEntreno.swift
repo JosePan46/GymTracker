@@ -42,17 +42,22 @@ struct aniadirEntreno: View {
     var body: some View {
         VStack(){
             Section{
-                HStack{
-                    Button(action:{
-                        appState.boar = true
-                    }) {
-                        Image(systemName: "chevron.left")
-                        Text("Back")
-                        Spacer()
-                    }
-                    
-                    .multilineTextAlignment(.trailing)
-                    //.padding(.trailing, 330)
+                VStack(alignment: .trailing){
+                    Section{
+                        HStack{
+                            Button(action:{
+                                appState.boar = true
+                            }) {
+                                Image(systemName: "chevron.left")
+                                Text("Back")
+                                
+                            }
+                            Spacer()
+                            
+                            .multilineTextAlignment(.trailing)
+                            //.padding(.trailing, 330)
+                        }
+                }
                 }
                 HStack{
                     
@@ -133,11 +138,12 @@ struct aniadirEntreno: View {
                         Button("Enviar"){
                             if (direccionEmail == ""){
                                 emailControl = true;
+                            }else{
+                                subjectEmail = titulo;
+                                cuerpo = cuerpoEmail(ejercicios: ejercicios)
+                                let email = Email(direccion: direccionEmail, subject: subjectEmail, header: "header", ejercicios: ejercicios, body: cuerpo)
+                                email.send(openUrl: openUrl)
                             }
-                            subjectEmail = titulo;
-                            cuerpo = cuerpoEmail(ejercicios: ejercicios)
-                            let email = Email(direccion: direccionEmail, subject: subjectEmail, header: "header", ejercicios: ejercicios, body: cuerpo)
-                            email.send(openUrl: openUrl)
                         }
                         .alert(isPresented: $emailControl, content: {
                             Alert(title: Text("Atención"),
@@ -197,12 +203,13 @@ func cuerpoEmail (ejercicios : [EjercicioModel]) -> String{
         count = 1
         for serie in ejercicio.series {
             
-            c += "\n" + "Serie: " + "\(count)" + "\n"
-            c += serie.repeticiones + "/t" + serie.peso
-            c += "\n"
+            c += "\n" + "Serie " + "\(count): " + "\t  Repeticiones: "
+            c += serie.repeticiones + "\t" + "\t" + " Peso: " + serie.peso + " Kg"
+            c += "\n" + "\n"
             count += 1
             
         }
     }
+    c += "\n" + "\n" + "\n" + "\n" + "Email autogenerado por GymTracker"
     return c;
 }
