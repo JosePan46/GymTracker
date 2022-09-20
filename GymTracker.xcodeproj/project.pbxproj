@@ -14,6 +14,12 @@
 		82AD349C28D508F40033E2A0 /* GymTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD349B28D508F40033E2A0 /* GymTrackerTests.swift */; };
 		82AD34A628D508F40033E2A0 /* GymTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD34A528D508F40033E2A0 /* GymTrackerUITests.swift */; };
 		82AD34A828D508F40033E2A0 /* GymTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD34A728D508F40033E2A0 /* GymTrackerUITestsLaunchTests.swift */; };
+		82AD34B728D509750033E2A0 /* EntrenamientoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD34B428D509750033E2A0 /* EntrenamientoModel.swift */; };
+		82AD34B828D509750033E2A0 /* EjercicioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD34B528D509750033E2A0 /* EjercicioModel.swift */; };
+		82AD34B928D509750033E2A0 /* EntrenamientoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD34B628D509750033E2A0 /* EntrenamientoViewModel.swift */; };
+		82AD34BB28D509920033E2A0 /* SeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD34BA28D509910033E2A0 /* SeriesModel.swift */; };
+		82AD34BD28D509BD0033E2A0 /* aniadirEntreno.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD34BC28D509BD0033E2A0 /* aniadirEntreno.swift */; };
+		82AD34BF28D509C30033E2A0 /* detalle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD34BE28D509C30033E2A0 /* detalle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +50,12 @@
 		82AD34A128D508F40033E2A0 /* GymTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GymTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82AD34A528D508F40033E2A0 /* GymTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymTrackerUITests.swift; sourceTree = "<group>"; };
 		82AD34A728D508F40033E2A0 /* GymTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		82AD34B428D509750033E2A0 /* EntrenamientoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntrenamientoModel.swift; sourceTree = "<group>"; };
+		82AD34B528D509750033E2A0 /* EjercicioModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EjercicioModel.swift; sourceTree = "<group>"; };
+		82AD34B628D509750033E2A0 /* EntrenamientoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntrenamientoViewModel.swift; sourceTree = "<group>"; };
+		82AD34BA28D509910033E2A0 /* SeriesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesModel.swift; sourceTree = "<group>"; };
+		82AD34BC28D509BD0033E2A0 /* aniadirEntreno.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = aniadirEntreno.swift; sourceTree = "<group>"; };
+		82AD34BE28D509C30033E2A0 /* detalle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = detalle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +108,12 @@
 			children = (
 				82AD348A28D508F20033E2A0 /* GymTrackerApp.swift */,
 				82AD348C28D508F20033E2A0 /* ContentView.swift */,
+				82AD34BE28D509C30033E2A0 /* detalle.swift */,
+				82AD34BC28D509BD0033E2A0 /* aniadirEntreno.swift */,
+				82AD34B528D509750033E2A0 /* EjercicioModel.swift */,
+				82AD34B428D509750033E2A0 /* EntrenamientoModel.swift */,
+				82AD34B628D509750033E2A0 /* EntrenamientoViewModel.swift */,
+				82AD34BA28D509910033E2A0 /* SeriesModel.swift */,
 				82AD348E28D508F30033E2A0 /* Assets.xcassets */,
 				82AD349028D508F30033E2A0 /* Preview Content */,
 			);
@@ -257,7 +275,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82AD34BB28D509920033E2A0 /* SeriesModel.swift in Sources */,
+				82AD34B728D509750033E2A0 /* EntrenamientoModel.swift in Sources */,
+				82AD34B828D509750033E2A0 /* EjercicioModel.swift in Sources */,
+				82AD34BF28D509C30033E2A0 /* detalle.swift in Sources */,
 				82AD348D28D508F20033E2A0 /* ContentView.swift in Sources */,
+				82AD34BD28D509BD0033E2A0 /* aniadirEntreno.swift in Sources */,
+				82AD34B928D509750033E2A0 /* EntrenamientoViewModel.swift in Sources */,
 				82AD348B28D508F20033E2A0 /* GymTrackerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,6 +441,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GymTracker/Preview Content\"";
+				DEVELOPMENT_TEAM = W7Q8X5NW3F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -445,6 +470,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GymTracker/Preview Content\"";
+				DEVELOPMENT_TEAM = W7Q8X5NW3F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
