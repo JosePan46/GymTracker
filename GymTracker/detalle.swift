@@ -51,10 +51,11 @@ struct detalle: View {
                     ForEach(ejercicios, id:\.nombre){ ejercicio in
                         
                         VStack(alignment: .center){
+                              
                                 Text("\(ejercicio.nombre)")
                                     .font(.headline)
                             Section{
-                            ForEach(ejercicio.series, id:\.peso){ serie in
+                                ForEach(ejercicio.series, id:\.id){ serie in
                                 Grid{
                                     GridRow{
                                         Text ("Repeticiones:")

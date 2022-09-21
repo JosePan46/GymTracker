@@ -221,10 +221,11 @@ func cuerpoEmail (ejercicios : [EjercicioModel]) -> String{
             
             c += "\n" + "Serie " + "\(count): " + "\t  Repeticiones: "
             c += serie.repeticiones + "\t" + "\t" + " Peso: " + serie.peso + " Kg"
-            c += "\n" + "\n"
+            c += "\n"
             count += 1
             
         }
+        c += "\n" + "\n"
     }
     c += "\n" + "\n" + "\n" + "\n" + "Email autogenerado por GymTracker"
     return c;
