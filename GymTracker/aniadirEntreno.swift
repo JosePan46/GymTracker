@@ -156,6 +156,11 @@ struct aniadirEntreno: View {
                                 cuerpo = cuerpoEmail(ejercicios: ejercicios)
                                 let email = Email(direccion: direccionEmail, subject: subjectEmail, header: "header", ejercicios: ejercicios, body: cuerpo)
                                 email.send(openUrl: openUrl)
+                                
+                                //Prueba para ver si funciona (necesitamos el movil)
+                                entrenoViewModel.saveEntrenamiento(titulo: titulo, ejercicios: ejercicios)
+                                titulo=""
+                                appState.boar = true
                             }
                         }
                         .alert(isPresented: $emailControl, content: {
@@ -196,7 +201,6 @@ struct aniadirEntreno: View {
                                   secondaryButton: .destructive(Text("Cancelar")))
                         })
                 }
-                
             }
         }
     }
