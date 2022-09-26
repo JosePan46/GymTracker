@@ -88,6 +88,7 @@ struct aniadirEntreno: View {
                 Spacer()
                 Spacer()
             }
+            
             Form{
                 Section{
                     TextField("Título del entrenamiento", text: $titulo)
@@ -113,25 +114,33 @@ struct aniadirEntreno: View {
                     Text("Serie 1")
                     Spacer()
                     TextField("Nº Repeticiones", text: $numRepeticiones1)
+                        .keyboardType(.numberPad)
                     TextField("Peso", text: $pesos1)
+                        .keyboardType(.numberPad)
                 }
                 HStack {
                     Text("Serie 2")
                     Spacer()
                     TextField("Nº Repeticiones", text: $numRepeticiones2)
+                        .keyboardType(.numberPad)
                     TextField("Peso", text: $pesos2)
+                        .keyboardType(.numberPad)
                 }
                 HStack {
                     Text("Serie 3")
                     Spacer()
                     TextField("Nº Repeticiones", text: $numRepeticiones3)
+                        .keyboardType(.numberPad)
                     TextField("Peso", text: $pesos3)
+                        .keyboardType(.numberPad)
                 }
                 HStack {
                     Text("Serie 4")
                     Spacer()
                     TextField("Nº Repeticiones", text: $numRepeticiones4)
+                        .keyboardType(.numberPad)
                     TextField("Peso", text: $pesos4)
+                        .keyboardType(.numberPad)
                 }
                 Button(action: {
                     print("Añadiendo")
@@ -184,66 +193,64 @@ struct aniadirEntreno: View {
                           secondaryButton: .destructive(Text("Cancelar")))
                 })
                 Section{
-                    HStack{
-                        TextField("Dirección email", text: $direccionEmail)
-                        Button("Enviar"){
-                            if (direccionEmail == ""){
-                                emailControl = true;
-                            }else{
-                                subjectEmail = titulo;
-                                cuerpo = cuerpoEmail(ejercicios: ejercicios)
-                                let email = Email(direccion: direccionEmail, subject: subjectEmail, header: "header", ejercicios: ejercicios, body: cuerpo)
-                                email.send(openUrl: openUrl)
-                                
-                                //Prueba para ver si funciona (necesitamos el movil)
-                                entrenoViewModel.saveEntrenamiento(titulo: titulo, ejercicios: ejercicios)
-                                titulo=""
-                                ejercicios = []
-                                appState.boar = true
-                            }
-                        }
-                        .alert(isPresented: $emailControl, content: {
-                            Alert(title: Text("Atención"),
-                                  message: Text("La dirección de correo no puede estar vacío"))
-                        })
-                    }
                     Section{
-                        
-                        Button(action: {
-                            if titulo=="" {
-                                isPresented = true
-                            }else{
-                                confirmation = true;
+                        HStack{
+                            TextField("Dirección email", text: $direccionEmail)
+                                .keyboardType(.emailAddress)
+                            Button("Enviar"){
+                                if (direccionEmail == ""){
+                                    emailControl = true;
+                                }else{
+                                    subjectEmail = titulo;
+                                    cuerpo = cuerpoEmail(ejercicios: ejercicios)
+                                    let email = Email(direccion: direccionEmail, subject: subjectEmail, header: "header", ejercicios: ejercicios, body: cuerpo)
+                                    email.send(openUrl: openUrl)
+                                    
+                                    //Prueba para ver si funciona (necesitamos el movil)
+                                    entrenoViewModel.saveEntrenamiento(titulo: titulo, ejercicios: ejercicios)
+                                    titulo=""
+                                    ejercicios = []
+                                }
                             }
-                        }) {
-                            Text("Finalizar entrenamiento")
-                                .fontWeight(.heavy)
-                                .foregroundColor(Color.red)
+                            .alert(isPresented: $emailControl, content: {
+                                Alert(title: Text("Atención"),
+                                      message: Text("La dirección de correo no puede estar vacío"))
+                            })
                         }
-                        
-                        .alert(isPresented: $isPresented, content: {
-                            Alert(title: Text("Atención"),
-                                  message: Text("El título del día no puede estar vacío"))
-                        })
-                        .alert(isPresented: $confirmation, content: {
-                            Alert(title: Text("Confirmar"),
-                                  message:  Text("¿Está seguro de que desea finalizar el entrenamiento?"),
-                                  primaryButton: Alert.Button.default(Text("Aceptar"), action: {
-                                entrenoViewModel.saveEntrenamiento(titulo: titulo, ejercicios: ejercicios)
-                                titulo=""
-                                ejercicios = []
-                                appState.boar = true
-                                
-                                print("El user ha pulsado el botón de Aceptar")
-                            }),
-                                  secondaryButton: .destructive(Text("Cancelar")))
-                        })
+                    }
+                        Section{
+                            Button(action: {
+                                if titulo=="" {
+                                    isPresented = true
+                                }else{
+                                    confirmation = true;
+                                }
+                            }) {
+                                Text("Finalizar entrenamiento")
+                                    .fontWeight(.heavy)
+                                    .foregroundColor(Color.red)
+                            }
+                            
+                            .alert(isPresented: $isPresented, content: {
+                                Alert(title: Text("Atención"),
+                                      message: Text("El título del día no puede estar vacío"))
+                            })
+                            .alert(isPresented: $confirmation, content: {
+                                Alert(title: Text("Confirmar"),
+                                      message:  Text("¿Está seguro de que desea finalizar el entrenamiento?"),
+                                      primaryButton: Alert.Button.default(Text("Aceptar"), action: {
+                                    entrenoViewModel.saveEntrenamiento(titulo: titulo, ejercicios: ejercicios)
+                                    titulo=""
+                                    ejercicios = []
+                                    appState.boar = true
+                                    
+                                    print("El user ha pulsado el botón de Aceptar")
+                                }),
+                                      secondaryButton: .destructive(Text("Cancelar")))
+                            })
                     }
                 }
-                
-                
             }
-            
         }
     }
 }
