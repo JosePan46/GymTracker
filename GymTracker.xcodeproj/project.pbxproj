@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8264AC2528E0751500150261 /* ejercicioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8264AC2428E0751500150261 /* ejercicioViewModel.swift */; };
 		828448BF28D9FF1A0001E6CE /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828448BE28D9FF1A0001E6CE /* Email.swift */; };
 		82AD348B28D508F20033E2A0 /* GymTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD348A28D508F20033E2A0 /* GymTrackerApp.swift */; };
 		82AD348D28D508F20033E2A0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD348C28D508F20033E2A0 /* ContentView.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8264AC2428E0751500150261 /* ejercicioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ejercicioViewModel.swift; sourceTree = "<group>"; };
 		828448BE28D9FF1A0001E6CE /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
 		82AD348728D508F20033E2A0 /* GymTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GymTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82AD348A28D508F20033E2A0 /* GymTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymTrackerApp.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				82AD34B528D509750033E2A0 /* EjercicioModel.swift */,
 				82AD34B428D509750033E2A0 /* EntrenamientoModel.swift */,
 				82AD34B628D509750033E2A0 /* EntrenamientoViewModel.swift */,
+				8264AC2428E0751500150261 /* ejercicioViewModel.swift */,
 				82AD34BA28D509910033E2A0 /* SeriesModel.swift */,
 				82AD348E28D508F30033E2A0 /* Assets.xcassets */,
 				82AD349028D508F30033E2A0 /* Preview Content */,
@@ -281,6 +284,7 @@
 				82AD34BB28D509920033E2A0 /* SeriesModel.swift in Sources */,
 				82AD34B728D509750033E2A0 /* EntrenamientoModel.swift in Sources */,
 				82AD34B828D509750033E2A0 /* EjercicioModel.swift in Sources */,
+				8264AC2528E0751500150261 /* ejercicioViewModel.swift in Sources */,
 				82AD34BF28D509C30033E2A0 /* detalle.swift in Sources */,
 				82AD348D28D508F20033E2A0 /* ContentView.swift in Sources */,
 				828448BF28D9FF1A0001E6CE /* Email.swift in Sources */,
@@ -457,7 +461,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = JosePan.GymTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -486,7 +490,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = JosePan.GymTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

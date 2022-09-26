@@ -8,14 +8,38 @@
 import SwiftUI
 import MessageUI
 
-let ejerciciosArray = ["Press de banca", "Biceps polea"]
+var ejercicioSeleccionado :String = ""
 
 struct aniadirEntreno: View {
-    @StateObject var entrenoViewModel = EntrenamientoViewModel()
+    
+    
+    @StateObject var entrenoViewModel       = EntrenamientoViewModel()
+    @StateObject var eejercicioViewModel    = ejercicioViewModel()
+    
+    //Entrenamiento
     @State private var titulo : String = ""
+    
+    
+    //Ejercicio
+    @State private var seleccionado : String = ""
     @State private var ejercicios : [EjercicioModel] = []
     
-    @State private var nombreEjercicio : String = ""
+    //Entorno
+    @EnvironmentObject var appState: AppState
+    
+    //Email
+    
+    @State private var direccionEmail   : String = ""
+    @State private var subjectEmail     : String = ""
+    @State private var headerEmail      : String = "header"
+    @State private var cuerpo           : String = ""
+    @Environment(\.openURL) var openUrl
+    @State private var emailControl     : Bool = false
+    
+    
+    
+    //Series y pesos
+    @State private var nombreEjercicio :  String = ""
     @State private var numRepeticiones1 : String = ""
     @State private var numRepeticiones2 : String = ""
     @State private var numRepeticiones3 : String = ""
@@ -26,22 +50,17 @@ struct aniadirEntreno: View {
     @State private var pesos3 : String = ""
     @State private var pesos4 : String = ""
     
+    @State private var pesoU  : String = ""
+    
+    
+    //Control
+    
     @State private var isPresented      : Bool = false
     @State private var confirmation     : Bool = false
-    @State private var emailControl     : Bool = false
     @State private var ejercicioControl : Bool = false
     
-    @EnvironmentObject var appState: AppState
-    
-    
-    @Environment(\.openURL) var openUrl
-    @State private var direccionEmail : String = ""
-    @State private var subjectEmail : String = ""
-    @State private var headerEmail : String = "header"
-    @State private var cuerpo : String = ""
-    
     var body: some View {
-        VStack(){
+        VStack{
             Section{
                 VStack(alignment: .trailing){
                     Section{
@@ -55,7 +74,6 @@ struct aniadirEntreno: View {
                             }
                             Spacer()
                                 .multilineTextAlignment(.trailing)
-                            //.padding(.trailing, 330)
                         }
                     }
                 }
@@ -63,6 +81,7 @@ struct aniadirEntreno: View {
                     
                     Text("Gym Tracker").font(.title).fontWeight(.bold)
                     Image(systemName: "magazine")
+                    
                 }
                 Spacer()
                 Spacer()
@@ -72,9 +91,24 @@ struct aniadirEntreno: View {
             Form{
                 Section{
                     TextField("Título del entrenamiento", text: $titulo)
-                    
                 }
-                TextField("Nombre del ejercicio", text: $nombreEjercicio)
+                Picker("Ejercicios", selection: $seleccionado){
+                    ForEach($eejercicioViewModel.ejercicios, id:\.id){ $ejercicio in
+                        Text(ejercicio.nombre)
+                    }
+                }
+                HStack{
+                    Text("Peso máximo")
+                    Spacer()
+                    Text("\(eejercicioViewModel.getPesoMax(id: seleccionado))")
+                    Text("Kg")
+                }
+                HStack{
+                    Text("Último peso")
+                    Spacer()
+                    Text("\(eejercicioViewModel.getPesoUltim(id:seleccionado))")
+                    Text("Kg")
+                }
                 HStack {
                     Text("Serie 1")
                     Spacer()
@@ -123,10 +157,15 @@ struct aniadirEntreno: View {
                         let serie4 = SeriesModel(repeticiones: numRepeticiones4, peso: pesos4)
                         let seriesArray = [serie1,serie2,serie3,serie4]
                         
+                        pesoU = mayor(peso1: pesos1, peso2: pesos2, peso3: pesos3, peso4: pesos4)
                         
-                        let ejercicio = EjercicioModel(nombre: nombreEjercicio, series: seriesArray)
+                        let ejercicio = EjercicioModel(nombre: eejercicioViewModel.getNombre(id: seleccionado), series: seriesArray, pesoMax: "0", pesoUlt: "0", ayuda: false)
                         
                         ejercicios.insert(ejercicio, at: ejercicios.count)
+                        
+                        //@State var ejercicioPrueba = eejercicioViewModel.getEjercicio(id: seleccionado)
+                        
+                        eejercicioViewModel.modificar(ejercicioId: seleccionado, pesoUlti: pesoU)
                         
                         nombreEjercicio=""
                         numRepeticiones1=""
@@ -144,7 +183,6 @@ struct aniadirEntreno: View {
                     }),
                           secondaryButton: .destructive(Text("Cancelar")))
                 })
-                
                 Section{
                     HStack{
                         TextField("Dirección email", text: $direccionEmail)
@@ -160,6 +198,7 @@ struct aniadirEntreno: View {
                                 //Prueba para ver si funciona (necesitamos el movil)
                                 entrenoViewModel.saveEntrenamiento(titulo: titulo, ejercicios: ejercicios)
                                 titulo=""
+                                ejercicios = []
                                 appState.boar = true
                             }
                         }
@@ -168,9 +207,7 @@ struct aniadirEntreno: View {
                                   message: Text("La dirección de correo no puede estar vacío"))
                         })
                     }
-                }
-                Section{
-                    
+                    Section{
                         
                         Button(action: {
                             if titulo=="" {
@@ -194,22 +231,60 @@ struct aniadirEntreno: View {
                                   primaryButton: Alert.Button.default(Text("Aceptar"), action: {
                                 entrenoViewModel.saveEntrenamiento(titulo: titulo, ejercicios: ejercicios)
                                 titulo=""
+                                ejercicios = []
                                 appState.boar = true
                                 
                                 print("El user ha pulsado el botón de Aceptar")
                             }),
                                   secondaryButton: .destructive(Text("Cancelar")))
                         })
+                    }
                 }
+                
+                
             }
+            
         }
     }
 }
+
 
 struct aniadirEntreno_Previews: PreviewProvider {
     static var previews: some View {
         aniadirEntreno()
     }
+}
+
+
+func mayor (peso1:String, peso2:String, peso3:String, peso4:String) -> (String){
+    var mayor:String = ""
+    
+    let pesouno     = (peso1 as NSString).doubleValue
+    let pesodos     = (peso2 as NSString).doubleValue
+    let pesotres    = (peso3 as NSString).doubleValue
+    let pesocuatro  = (peso4 as NSString).doubleValue
+    
+    var ganador:Double = 0
+    
+    if pesouno > pesodos {
+        ganador = pesouno
+    }else{
+        ganador = pesodos
+    }
+    
+    if pesotres > pesocuatro{
+        if (pesotres > ganador){
+            ganador = pesotres
+        }
+    }else{
+        if pesocuatro > ganador {
+            ganador = pesocuatro
+        }
+    }
+    
+    mayor = String(format:"%.2f", ganador)
+    
+    return mayor;
 }
 
 func cuerpoEmail (ejercicios : [EjercicioModel]) -> String{

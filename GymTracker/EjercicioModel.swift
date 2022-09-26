@@ -6,14 +6,29 @@
 //
 
 import Foundation
+import SwiftUI
 
-struct EjercicioModel: Codable{
+struct EjercicioModel: Codable, Equatable{
+    static func == (lhs: EjercicioModel, rhs: EjercicioModel) -> Bool {
+        return lhs.id == rhs.id
+        
+    }
+    
     let nombre:String
     var series: [SeriesModel]
+    var pesoMax: String
+    var pesoUlt: String
+    let id:      String
+    let ayuda:   Bool
     
-    init (nombre:String, series: [SeriesModel]){
-        self.nombre = nombre
-        self.series = series
+    init (id:String = UUID().uuidString,nombre:String, series: [SeriesModel], pesoMax: String, pesoUlt: String, ayuda: Bool){
+        self.nombre     = nombre
+        self.series     = series
+        self.pesoMax    = pesoMax
+        self.pesoUlt    = pesoUlt
+        self.id         = id
+        self.ayuda      = ayuda
     }
     
 }
+

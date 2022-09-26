@@ -39,6 +39,9 @@ final class EntrenamientoViewModel: ObservableObject{
         return []
     }
     
+    
+    
+    
     func removeEntreno (with id: String){
         entrenamientos.removeAll(where: {$0.id == id})
         encodeAndSaveAll()

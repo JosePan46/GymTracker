@@ -14,17 +14,17 @@ let series4  = SeriesModel(repeticiones: "5",   peso:       "20")
 
 
 let series = [serie1, serie2,series3,series4]
-let eje1   = EjercicioModel(nombre: "Press Banca", series: series)
+let eje1   = EjercicioModel(nombre: "Press Banca", series: series, pesoMax: "0", pesoUlt: "0", ayuda: false)
 
-let eje2   = EjercicioModel(nombre: "Biceps polea", series: series)
+let eje2   = EjercicioModel(nombre: "Biceps polea", series: series, pesoMax: "0", pesoUlt: "0", ayuda: false)
 
-let eje3   = EjercicioModel(nombre: "Press inclinado", series: series)
+let eje3   = EjercicioModel(nombre: "Press inclinado", series: series, pesoMax: "0", pesoUlt: "0", ayuda: false)
 
-let eje4   = EjercicioModel(nombre: "Biceps pesas", series: series)
+let eje4   = EjercicioModel(nombre: "Biceps pesas", series: series, pesoMax: "0", pesoUlt: "0", ayuda: false)
 
-let eje5   = EjercicioModel(nombre: "Peck deck", series: series)
+let eje5   = EjercicioModel(nombre: "Peck deck", series: series, pesoMax: "0", pesoUlt: "0", ayuda: false)
 
-let eje6   = EjercicioModel(nombre: "Biceps barra", series: series)
+let eje6   = EjercicioModel(nombre: "Biceps barra", series: series, pesoMax: "0", pesoUlt: "0", ayuda: false)
 
 let fech = "11/2/22"
 

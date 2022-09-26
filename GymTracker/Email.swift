@@ -31,6 +31,27 @@ struct Email {
         }
     }
     
-    
+    func cuerpoEmail (ejercicios : [EjercicioModel]) -> String{
+        
+        var c : String = ""
+        
+        var count: Int = 1;
+        
+        for ejercicio in ejercicios {
+            c += ejercicio.nombre + "\n"
+            count = 1
+            for serie in ejercicio.series {
+                
+                c += "\n" + "Serie " + "\(count): " + "\t  Repeticiones: "
+                c += serie.repeticiones + "\t" + "\t" + " Peso: " + serie.peso + " Kg"
+                c += "\n"
+                count += 1
+                
+            }
+            c += "\n" + "\n"
+        }
+        c += "\n" + "\n" + "\n" + "\n" + "Email autogenerado por GymTracker"
+        return c;
+    }
     
 }
