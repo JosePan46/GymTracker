@@ -75,7 +75,7 @@ struct detalle: View {
                 .toolbar{
                     ToolbarItem(placement: .principal){
                         HStack{
-                            Text("\(titulo)").font(.title).fontWeight(.bold)
+                            Text("\(titulo)").font(.title).fontWeight(.bold).fixedSize(horizontal: false, vertical: true)
                             Image(systemName: "swift")
                         }
                     }
@@ -87,7 +87,7 @@ struct detalle: View {
 
 struct detalle_Previews: PreviewProvider {
     static var previews: some View {
-        detalle(titulo: "Día de ejemplo", ejercicios: [eje1, eje2,eje3,eje4,eje5,eje6], fecha: fech)
+        detalle(titulo: "Día 2 Espalda y Biceps", ejercicios: [eje1, eje2,eje3,eje4,eje5,eje6], fecha: fech)
     }
 }
 

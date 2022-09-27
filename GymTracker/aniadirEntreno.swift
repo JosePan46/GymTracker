@@ -114,33 +114,33 @@ struct aniadirEntreno: View {
                     Text("Serie 1")
                     Spacer()
                     TextField("Nº Repeticiones", text: $numRepeticiones1)
-                        .keyboardType(.numberPad)
+                        .keyboardType(.decimalPad)
                     TextField("Peso", text: $pesos1)
-                        .keyboardType(.numberPad)
+                        .keyboardType(.decimalPad)
                 }
                 HStack {
                     Text("Serie 2")
                     Spacer()
                     TextField("Nº Repeticiones", text: $numRepeticiones2)
-                        .keyboardType(.numberPad)
+                        .keyboardType(.decimalPad)
                     TextField("Peso", text: $pesos2)
-                        .keyboardType(.numberPad)
+                        .keyboardType(.decimalPad)
                 }
                 HStack {
                     Text("Serie 3")
                     Spacer()
                     TextField("Nº Repeticiones", text: $numRepeticiones3)
-                        .keyboardType(.numberPad)
+                        .keyboardType(.decimalPad)
                     TextField("Peso", text: $pesos3)
-                        .keyboardType(.numberPad)
+                        .keyboardType(.decimalPad)
                 }
                 HStack {
                     Text("Serie 4")
                     Spacer()
                     TextField("Nº Repeticiones", text: $numRepeticiones4)
-                        .keyboardType(.numberPad)
+                        .keyboardType(.decimalPad)
                     TextField("Peso", text: $pesos4)
-                        .keyboardType(.numberPad)
+                        .keyboardType(.decimalPad)
                 }
                 Button(action: {
                     print("Añadiendo")
@@ -172,7 +172,6 @@ struct aniadirEntreno: View {
                         
                         ejercicios.insert(ejercicio, at: ejercicios.count)
                         
-                        //@State var ejercicioPrueba = eejercicioViewModel.getEjercicio(id: seleccionado)
                         
                         eejercicioViewModel.modificar(ejercicioId: seleccionado, pesoUlti: pesoU)
                         
@@ -206,10 +205,6 @@ struct aniadirEntreno: View {
                                     let email = Email(direccion: direccionEmail, subject: subjectEmail, header: "header", ejercicios: ejercicios, body: cuerpo)
                                     email.send(openUrl: openUrl)
                                     
-                                    //Prueba para ver si funciona (necesitamos el movil)
-                                    entrenoViewModel.saveEntrenamiento(titulo: titulo, ejercicios: ejercicios)
-                                    titulo=""
-                                    ejercicios = []
                                 }
                             }
                             .alert(isPresented: $emailControl, content: {
