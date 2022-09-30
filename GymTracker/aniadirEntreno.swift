@@ -166,7 +166,15 @@ struct aniadirEntreno: View {
                         let serie4 = SeriesModel(repeticiones: numRepeticiones4, peso: pesos4)
                         let seriesArray = [serie1,serie2,serie3,serie4]
                         
-                        pesoU = mayor(peso1: pesos1, peso2: pesos2, peso3: pesos3, peso4: pesos4)
+                        
+                        
+                        
+                        if (eejercicioViewModel.getAyuda(id: seleccionado)){
+                            pesoU = mayor(peso1: pesos1, peso2: pesos2, peso3: pesos3, peso4: pesos4)
+                        }else{
+                            pesoU = mayor(peso1: pesos1, peso2: pesos2, peso3: pesos3, peso4: pesos4)
+                        }
+                        
                         
                         let ejercicio = EjercicioModel(nombre: eejercicioViewModel.getNombre(id: seleccionado), series: seriesArray, pesoMax: "0", pesoUlt: "0", ayuda: false)
                         
@@ -261,12 +269,12 @@ struct aniadirEntreno_Previews: PreviewProvider {
 func mayor (peso1:String, peso2:String, peso3:String, peso4:String) -> (String){
     var mayor:String = ""
     
-    let pesouno     = (peso1 as NSString).doubleValue
-    let pesodos     = (peso2 as NSString).doubleValue
-    let pesotres    = (peso3 as NSString).doubleValue
-    let pesocuatro  = (peso4 as NSString).doubleValue
+    let pesouno     = pesoADouble(peso: peso1)
+    let pesodos     = pesoADouble(peso: peso2)
+    let pesotres    = pesoADouble(peso: peso3)
+    let pesocuatro  = pesoADouble(peso: peso4)
     
-    var ganador:Double = 0
+    var ganador:Double = pesouno
     
     if pesouno > pesodos {
         ganador = pesouno
@@ -289,6 +297,42 @@ func mayor (peso1:String, peso2:String, peso3:String, peso4:String) -> (String){
     return mayor;
 }
 
+func menor (peso1:String, peso2:String, peso3:String, peso4:String) -> (String){
+    var menor:String = ""
+    
+    let pesouno     = pesoADouble(peso: peso1)
+    let pesodos     = pesoADouble(peso: peso2)
+    let pesotres    = pesoADouble(peso: peso3)
+    let pesocuatro  = pesoADouble(peso: peso4)
+    
+    var ganador:Double = pesouno
+    
+    if pesodos < pesouno {
+        ganador = pesodos
+    }else{
+        ganador = pesouno
+    }
+    
+    if pesotres < pesocuatro{
+        if (pesotres < ganador){
+            ganador = pesotres
+        }
+    }else{
+        if pesocuatro < ganador {
+            ganador = pesocuatro
+        }
+    }
+    
+    menor = String(format:"%.2f", ganador)
+    
+    return menor;
+}
+
+
+
+
+
+
 func cuerpoEmail (ejercicios : [EjercicioModel]) -> String{
     
     var c : String = ""
@@ -310,4 +354,16 @@ func cuerpoEmail (ejercicios : [EjercicioModel]) -> String{
     }
     c += "\n" + "\n" + "\n" + "\n" + "Email autogenerado por GymTracker"
     return c;
+}
+
+
+func pesoADouble (peso : String) -> Double{
+    var res : Double  = 0.0
+    
+    let new = peso.replacingOccurrences(of: ",", with: ".")
+    
+    res = (new as NSString).doubleValue
+    
+    
+    return res;
 }
