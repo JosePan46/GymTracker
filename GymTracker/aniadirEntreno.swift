@@ -167,13 +167,8 @@ struct aniadirEntreno: View {
                         let seriesArray = [serie1,serie2,serie3,serie4]
                         
                         
+                        pesoU = mayor(peso1: pesos1, peso2: pesos2, peso3: pesos3, peso4: pesos4)
                         
-                        
-                        if (eejercicioViewModel.getAyuda(id: seleccionado)){
-                            pesoU = mayor(peso1: pesos1, peso2: pesos2, peso3: pesos3, peso4: pesos4)
-                        }else{
-                            pesoU = mayor(peso1: pesos1, peso2: pesos2, peso3: pesos3, peso4: pesos4)
-                        }
                         
                         
                         let ejercicio = EjercicioModel(nombre: eejercicioViewModel.getNombre(id: seleccionado), series: seriesArray, pesoMax: "0", pesoUlt: "0", ayuda: false)
@@ -221,36 +216,33 @@ struct aniadirEntreno: View {
                             })
                         }
                     }
-                        Section{
-                            Button(action: {
-                                if titulo=="" {
-                                    isPresented = true
-                                }else{
-                                    confirmation = true;
-                                }
-                            }) {
-                                Text("Finalizar entrenamiento")
-                                    .fontWeight(.heavy)
-                                    .foregroundColor(Color.red)
+                    Section{
+                        Button(action: {
+                            if titulo=="" {
+                                isPresented = true
+                            }else{
+                                confirmation = true;
                             }
+                        }) {
+                            Text("Finalizar entrenamiento")
+                                .fontWeight(.heavy)
+                                .foregroundColor(Color.red)
+                        }
+                        .alert (isPresented : $confirmation){
                             
-                            .alert(isPresented: $isPresented, content: {
-                                Alert(title: Text("Atención"),
-                                      message: Text("El título del día no puede estar vacío"))
-                            })
-                            .alert(isPresented: $confirmation, content: {
-                                Alert(title: Text("Confirmar"),
-                                      message:  Text("¿Está seguro de que desea finalizar el entrenamiento?"),
-                                      primaryButton: Alert.Button.default(Text("Aceptar"), action: {
-                                    entrenoViewModel.saveEntrenamiento(titulo: titulo, ejercicios: ejercicios)
-                                    titulo=""
-                                    ejercicios = []
-                                    appState.boar = true
-                                    
-                                    print("El user ha pulsado el botón de Aceptar")
-                                }),
-                                      secondaryButton: .destructive(Text("Cancelar")))
-                            })
+                            return Alert(title: Text("Confirmar"),
+                                         message:  Text("¿Está seguro de que desea finalizar el entrenamiento?"),
+                                         primaryButton: Alert.Button.default(Text("Aceptar"), action: {
+                                entrenoViewModel.saveEntrenamiento(titulo: titulo, ejercicios: ejercicios)
+                                titulo=""
+                                ejercicios = []
+                                appState.boar = true
+                                
+                                print("El user ha pulsado el botón de Aceptar")
+                            }),
+                                         secondaryButton: .destructive(Text("Cancelar")))
+                            
+                        }
                     }
                 }
             }

@@ -13,9 +13,10 @@ final class ejercicioViewModel: ObservableObject{
     @Published var ejercicios: [EjercicioModel] = []
     
     init(){
+        
         ejercicios = getAll()
         if ejercicios.isEmpty{
-            ejercicioInit()
+           ejercicioInit()
         }
     }
     
@@ -26,7 +27,7 @@ final class ejercicioViewModel: ObservableObject{
         
         // Ejercicios de pecho
         
-        if ejercicios.isEmpty {
+       // if ejercicios.isEmpty {
             
             
             
@@ -68,6 +69,9 @@ final class ejercicioViewModel: ObservableObject{
             contador += 1
             var remo            : EjercicioModel = EjercicioModel(nombre: "Remo", series: serie, pesoMax: "0",pesoUlt: "0",ayuda:  false )
             ejercicios.insert(remo, at: contador)
+            contador += 1
+            var lumbares            : EjercicioModel = EjercicioModel(nombre: "Lumbares", series: serie, pesoMax: "0",pesoUlt: "0",ayuda:  false )
+            ejercicios.insert(lumbares, at: contador)
             contador += 1
             
             //Ejercicios bíceps
@@ -116,7 +120,7 @@ final class ejercicioViewModel: ObservableObject{
             
             encodeAndSaveAll(ejercicios: ejercicios)
             
-        }
+      //  }
     }
     
     func modificar2 (ejercicio: Binding<EjercicioModel>, pesoUlti: String){
